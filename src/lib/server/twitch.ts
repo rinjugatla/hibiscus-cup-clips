@@ -67,6 +67,10 @@ export interface TwitchTokenResponse {
 }
 
 export interface TwitchUserResponse {
+    data: [TwitchUser];
+}
+
+export interface TwitchUser {
 	id: string;
 	login: string;
 	display_name: string;
