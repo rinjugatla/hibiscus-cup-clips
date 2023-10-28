@@ -12,7 +12,7 @@
     const getClips = async () => {
         const users = await axios.post<TwitchUserResponse>(
                 '/api/twitch/users',
-                { name: username }
+                { names: [username] }
             );
             userData = users.data.users[0];
     

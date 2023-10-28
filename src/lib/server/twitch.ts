@@ -146,21 +146,28 @@ export class TwitchApi {
 		console.log('refreshed token.');
 	}
 
-	async getUser(name: string): Promise<TwitchUserResponse> {
+	async getUser(names: [string]): Promise<TwitchUserResponse> {
 		await this.refreshToken();
-
 		const url = 'https://api.twitch.tv/helix/users';
+
+		const userNameParams = this.createUserNameParams(names);
 		const response = await axios.get<TwitchUserAPIResponse>(url, {
 			headers: {
 				Authorization: this._Token!.token,
 				'Client-Id': this._Setting.ClientId
 			},
-			params: {
-				login: name
-			}
+			params: userNameParams
 		});
 		const users = {users: response.data.data};
 		return users;
+	}
+
+	private createUserNameParams(names: [string]): URLSearchParams {
+		const params = new URLSearchParams();
+		for (const name of names) {
+			params.append('login', name);
+		}
+		return params;
 	}
 
 	async getClips(id: number): Promise<TwitchClipResponse> {
