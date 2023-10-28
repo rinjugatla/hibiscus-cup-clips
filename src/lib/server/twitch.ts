@@ -66,8 +66,12 @@ export interface TwitchTokenResponse {
 	token_type: string;
 }
 
-export interface TwitchUserResponse {
+export interface TwitchUserAPIResponse {
     data: [TwitchUser];
+}
+
+export interface TwitchUserResponse {
+	users: [TwitchUser]
 }
 
 export interface TwitchUser {
@@ -81,6 +85,14 @@ export interface TwitchUser {
 	offline_image_url: string;
 	view_count: number;
 	created_at: string;
+}
+
+export interface TwitchClipAPIResponse {
+	data: [TwitchClip];
+}
+
+export interface TwitchClipResponse {
+	clips: [TwitchClip]
 }
 
 export interface TwitchClip {
@@ -101,10 +113,6 @@ export interface TwitchClip {
 	duration: number;
 	vod_offset: number;
 	is_featured: boolean;
-}
-
-export interface TwitchClipResponse {
-	data: [TwitchClip];
 }
 
 export class TwitchApi {
@@ -142,7 +150,7 @@ export class TwitchApi {
 		await this.refreshToken();
 
 		const url = 'https://api.twitch.tv/helix/users';
-		const response = await axios.get<TwitchUserResponse>(url, {
+		const response = await axios.get<TwitchUserAPIResponse>(url, {
 			headers: {
 				Authorization: this._Token!.token,
 				'Client-Id': this._Setting.ClientId
@@ -151,14 +159,15 @@ export class TwitchApi {
 				login: name
 			}
 		});
-		return response.data;
+		const users = {users: response.data.data};
+		return users;
 	}
 
 	async getClips(id: number): Promise<TwitchClipResponse> {
 		await this.refreshToken();
 
 		const url = 'https://api.twitch.tv/helix/clips';
-		const response = await axios.get(url, {
+		const response = await axios.get<TwitchClipAPIResponse>(url, {
 			headers: {
 				Authorization: this._Token!.token,
 				'Client-Id': this._Setting.ClientId
@@ -167,6 +176,7 @@ export class TwitchApi {
 				broadcaster_id: id
 			}
 		});
-		return response.data;
+		const clips = {clips: response.data.data};
+		return clips;
 	}
 }

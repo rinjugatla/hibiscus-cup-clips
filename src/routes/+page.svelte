@@ -14,7 +14,7 @@
                 '/api/twitch/users',
                 { name: username }
             );
-            userData = users.data.data[0];
+            userData = users.data.users[0];
     
             const clips = await axios.post<TwitchClipResponse>(
                 '/api/twitch/clips',
@@ -37,5 +37,5 @@
 </form>
 
 {#if clipData != null}
-    <Clips clips={clipData.data}></Clips>     
+    <Clips clips={clipData.clips}></Clips>     
 {/if}
