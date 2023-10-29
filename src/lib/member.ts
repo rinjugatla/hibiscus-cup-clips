@@ -1,3 +1,13 @@
+// 企画者
+export const HIBISCUS_CUP_SPONSER = [
+	{ role: '企画', name: 'だいん', twitch: null, twitter: 'DAiN87006586' },
+	{ role: '運営', name: 'Aihara games', twitch: 'aiharagames', twitter: 'AiharaGames' },
+	{ role: '運営', name: 'kshrrr', twitch: null, twitter: 'ksnon_' },
+	{ role: '運営', name: 'たつもと', twitch: null, twitter: 'tatumoto07' },
+	{ role: '運営', name: 'しゃるおじさん', twitch: 'syaruoji', twitter: 'syarunyan_gg' },
+	{ role: 'ロゴ', name: 'ゆんま', twitch: 'yunma_flw', twitter: 'Yuika_flw' }
+];
+
 // 参加者
 export const HIBISCUS_CUP_TEAMS = {
 	A: [
