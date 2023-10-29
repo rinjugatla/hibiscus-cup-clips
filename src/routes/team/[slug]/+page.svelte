@@ -4,23 +4,17 @@
 	import { onMount } from "svelte";
     import type { PageData } from "./$types";
     import axios from 'redaxios';
+	import { HIBISCUS_CUP_TEAMS } from "$lib/member";
     export let data: PageData;
-    let usersClips: { [key: string] : {
-        user: TwitchUser,
-        clips: [TwitchClip]
-    }} = {};
 
-    const teams = {
-        'A': ['aone_kanon', 'appleberry_xx'],
-        'B': ['iamrupi', 'aioi_ai'],
-        'C': ['reona_vt', 'momoimei'],
-        'D': ['ampm_m', '310ramune'],
-        'E': ['bell0717', 'tachimiboshimakiri'],
-        'F': ['mogu_vtuber', 'ohitsu_zi'],
-        'G': ['gilltex', 'gaonya'],
-        'H': ['ltonewm', 'be_kooo'],
-        'I': ['higu_zz', 'deicecreeeam']
+    interface TwitchUserClips {
+        [key: string] : {
+            user: TwitchUser,
+            clips: [TwitchClip]
+        }
     }
+
+    let usersClips: TwitchUserClips = {};
 
     const getTeamCode = (): string|null => {
         const match = data.team.match('^[A-I]$')
@@ -28,10 +22,11 @@
     }
 
     const getTeamUsers = async (teamCode: string): Promise<[TwitchUser]> => {
-        const teamUsers = teams[teamCode as keyof typeof teams];
+        const teamUsers = HIBISCUS_CUP_TEAMS[teamCode as keyof typeof HIBISCUS_CUP_TEAMS];
+        const twitchUserNames = teamUsers.map((user) => user.twtich);
         const response = await axios.post<TwitchUserResponse>(
             '/api/twitch/users',
-            { names: teamUsers }
+            { names: twitchUserNames }
         );
 
         const users = response.data.users;
