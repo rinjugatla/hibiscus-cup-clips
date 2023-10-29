@@ -13,7 +13,7 @@ export const HIBISCUS_CUP_SPONSER = [
 export const HIBISCUS_CUP_TEAMS = {
 	A: [
 		{ name: '蒼音カノン', twtich: 'aone_kanon', twitter: 'aone_kanon', video_id: ['1956475542', '1956530908'] },
-		{ name: 'あぷべり', twtich: 'appleberry_xx', twitter: 'snoopy_gamble', video_id: ['', ] }
+		{ name: 'あぷべり', twtich: 'appleberry_xx', twitter: 'snoopy_gamble', video_id: [] }
 	],
 	B: [
 		{ name: 'るぴぃ', twtich: 'iamrupi', twitter: 'iamrupii', video_id: ['1956470883', ] },
