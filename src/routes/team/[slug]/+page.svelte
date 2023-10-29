@@ -4,7 +4,7 @@
 	import { onMount } from "svelte";
     import type { PageData } from "./$types";
     import axios from 'redaxios';
-	import { HIBISCUS_CUP_TEAMS } from "$lib/member";
+	import { HIBISCUS_CUP_MEMBER } from "$lib/member";
     export let data: PageData;
 
     interface TwitchUserClips {
@@ -22,7 +22,7 @@
     }
 
     const getTeamUsers = async (teamCode: string): Promise<[TwitchUser]> => {
-        const teamUsers = HIBISCUS_CUP_TEAMS[teamCode as keyof typeof HIBISCUS_CUP_TEAMS];
+        const teamUsers = HIBISCUS_CUP_MEMBER.filter((member) => member.team === teamCode);
         const twitchUserNames = teamUsers.map((user) => user.twtich);
         const response = await axios.post<TwitchUserResponse>(
             '/api/twitch/users',
