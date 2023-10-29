@@ -67,13 +67,13 @@
         const userNames = HIBISCUS_CUP_MEMBER.map((member) => member.twtich);
         const twitchUsers = await getTwitchUsers(userNames);
 
+        // 順序を定義順にしたいのでHIBISCUS_CUP_MEMBER基準
         let teamProfiles: HibiscusCupTeamMember[] = [];
-        for (const user of twitchUsers) {
-            const info = HIBISCUS_CUP_MEMBER.find((member) => member.twtich === user.login)!;
-            const memberProfile = new HibiscusCupTeamMember(info.name, user, '', info.team);
+        for (const member of HIBISCUS_CUP_MEMBER) {
+            const user = twitchUsers.find((user) => user.login === member.twtich)!;
+            const memberProfile = new HibiscusCupTeamMember(member.name, user, '', member.team);
             teamProfiles.push(memberProfile);
         }
-
         return teamProfiles;
     }
 
