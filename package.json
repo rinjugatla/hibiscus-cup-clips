@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
+		"devs": "vite dev --host --https",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -35,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"redaxios": "^0.5.1"
+		"redaxios": "^0.5.1",
+		"vite-plugin-mkcert": "^1.16.0"
 	}
 }
