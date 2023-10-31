@@ -1,88 +1,12 @@
 <script lang="ts">
-	import axios from 'redaxios';
-	import { HIBISCUS_CUP_MEMBER, HIBISCUS_CUP_SPONSER } from '$lib/member';
-	import { onMount } from 'svelte';
-	import { HibiscusCupTeamMember, HibiscusCupSponser, type ITwitchUser, type ITwitchUserResponse } from '$lib/types';
-
-    let sponserProfiles: HibiscusCupSponser[];
-    let teamMemberProfiles: HibiscusCupTeamMember[];
-
-    const getTeamMemberProfiles = async (): Promise<HibiscusCupTeamMember[]> => {
-        const userNames = HIBISCUS_CUP_MEMBER.map((member) => member.twtich);
-        const twitchUsers = await getTwitchUsers(userNames);
-
-        // 順序を定義順にしたいのでHIBISCUS_CUP_MEMBER基準
-        let teamProfiles: HibiscusCupTeamMember[] = [];
-        for (const member of HIBISCUS_CUP_MEMBER) {
-            const user = twitchUsers.find((user) => user.login === member.twtich)!;
-            const memberProfile = new HibiscusCupTeamMember(member.name, user, '', member.team);
-            teamProfiles.push(memberProfile);
-        }
-        return teamProfiles;
-    }
-
-    const getSponserProfiles = async (): Promise<HibiscusCupSponser[]> => {
-        const userNames = HIBISCUS_CUP_SPONSER.filter((member) => member.twitch != null).
-                                               map((member) => member.twitch!);
-        const twitchUsers = await getTwitchUsers(userNames);
-
-        let sponserProfiles: HibiscusCupSponser[] = [];
-        // twitch情報がないユーザもいるのでHIBISCUS_CUP_SPONSER基準
-        for (const sponser of HIBISCUS_CUP_SPONSER) {
-            const user = twitchUsers.find((user) => user.login === sponser.twitch);
-            const sponserProfile = new HibiscusCupSponser(sponser.name, user, '', sponser.role);
-            sponserProfiles.push(sponserProfile);
-        }
-
-        return sponserProfiles;
-    }
-
-    const getTwitchUsers = async (userNames: string[]): Promise<ITwitchUser[]> => {
-        const response = await axios.post<ITwitchUserResponse>(
-            '/api/twitch/users',
-            { names: userNames }
-        );
-
-        const users = response.data.users;
-        return users;
-    }
-
-    onMount(async () => {
-        sponserProfiles = await getSponserProfiles();
-        console.log(sponserProfiles);
-
-        teamMemberProfiles = await getTeamMemberProfiles();
-        console.log(teamMemberProfiles);
-    });
+    import { browser } from '$app/environment';
 </script>
 
-
-
-<div>
-    {#if !sponserProfiles}
-        <p>loading...</p>
-    {:else}
-        {#each sponserProfiles as sponser}
-            <div>
-                <p>{sponser.Role}</p>
-                <p>{sponser.Name}</p>
-            </div>
-        {/each}
+<div class="text-center">
+    {#if browser}
+        <script async src="https://platform.twitter.com/widgets.js"></script>
     {/if}
 
-</div>
-
-<div>
-
-
-    {#if !teamMemberProfiles}
-    <p>loading...</p>
-    {:else}
-        {#each teamMemberProfiles as member}
-            <div>
-                <p>{member.Team}</p>
-                <p>{member.Name}</p>
-            </div>
-        {/each}
-    {/if}
+    {@html `<blockquote class="twitter-tweet tw-align-center"><p lang="ja" dir="ltr">🌺BIG NEWS🌺<br><br>10/21(土) 18:30- <br>「第二回 HibiscusCUP inEFT」<br>開催決定ー!!!!!🥳🥳<br><br>今回の競技はタルコフで「謎解き」👀！？<br><br>視聴者プレゼントもあります！！<br><br>参加ストリーマー様の発表は後日！<br>お楽しみに！！！😉<a href="https://twitter.com/hashtag/%E3%82%BF%E3%83%AB%E3%82%B3%E3%83%95?src=hash&amp;ref_src=twsrc%5Etfw">#タルコフ</a>　<a href="https://twitter.com/hashtag/escapefromtarkov?src=hash&amp;ref_src=twsrc%5Etfw">#escapefromtarkov</a> <a href="https://t.co/p1Wvrq2A6d">pic.twitter.com/p1Wvrq2A6d</a></p>&mdash; りえぺこ🌺:) (@Riepeko_yolo) <a href="https://twitter.com/Riepeko_yolo/status/1709863499210641441?ref_src=twsrc%5Etfw">October 5, 2023</a></blockquote>`} 
+    {@html `<blockquote class="twitter-tweet tw-align-center"><p lang="ja" dir="ltr">🌺Hibiscus CUP🌺<br><br>\参加ストリーマー様の発表です！/<br><br>９組１８名の皆様をご招待しました！<br>ご参加ありがとうございます！<br><br>各チーム配信者様のURLは<br>下記ツリーにて！<br><br>優勝チームはどのチーム！？<br>どんな場面がみれるのか！？<br>お楽しみに！<a href="https://twitter.com/hashtag/%E3%82%BF%E3%83%AB%E3%82%B3%E3%83%95?src=hash&amp;ref_src=twsrc%5Etfw">#タルコフ</a>　<a href="https://twitter.com/hashtag/EscapefromTarkov?src=hash&amp;ref_src=twsrc%5Etfw">#EscapefromTarkov</a> <a href="https://t.co/EUH290HI1a">https://t.co/EUH290HI1a</a> <a href="https://t.co/UMrfgq0lvF">pic.twitter.com/UMrfgq0lvF</a></p>&mdash; りえぺこ🌺:) (@Riepeko_yolo) <a href="https://twitter.com/Riepeko_yolo/status/1711313245884334566?ref_src=twsrc%5Etfw">October 9, 2023</a></blockquote>`}
 </div>
