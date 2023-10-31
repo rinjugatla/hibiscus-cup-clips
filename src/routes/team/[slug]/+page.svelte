@@ -1,16 +1,16 @@
 <script lang='ts'>
-	import type { TwitchClip, TwitchClipResponse, TwitchUser, TwitchUserResponse } from "$lib/server/twitch";
     import Clips from '$lib/components/twtich/Clips.svelte';
 	import { onMount } from "svelte";
     import type { PageData } from "./$types";
     import axios from 'redaxios';
 	import { HIBISCUS_CUP_MEMBER } from "$lib/member";
+	import type { ITwitchClip, ITwitchClipResponse, ITwitchUser, ITwitchUserResponse } from '$lib/types';
     export let data: PageData;
 
     interface TwitchUserClips {
         [key: string] : {
-            user: TwitchUser,
-            clips: [TwitchClip]
+            user: ITwitchUser,
+            clips: [ITwitchClip]
         }
     }
 
@@ -21,10 +21,10 @@
         return match ? match[0] : null;
     }
 
-    const getTeamUsers = async (teamCode: string): Promise<[TwitchUser]> => {
+    const getTeamUsers = async (teamCode: string): Promise<[ITwitchUser]> => {
         const teamUsers = HIBISCUS_CUP_MEMBER.filter((member) => member.team === teamCode);
         const twitchUserNames = teamUsers.map((user) => user.twtich);
-        const response = await axios.post<TwitchUserResponse>(
+        const response = await axios.post<ITwitchUserResponse>(
             '/api/twitch/users',
             { names: twitchUserNames }
         );
@@ -33,8 +33,8 @@
         return users;
     }
 
-    const getClips = async (user: TwitchUser) => {
-        const response = await axios.post<TwitchClipResponse>(
+    const getClips = async (user: ITwitchUser) => {
+        const response = await axios.post<ITwitchClipResponse>(
             '/api/twitch/clips',
             {id: user.id}
         );

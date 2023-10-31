@@ -1,18 +1,18 @@
-export interface TwitchTokenResponse {
+export interface ITwitchTokenResponse {
 	access_token: string;
 	expires_in: number;
 	token_type: string;
 }
 
-export interface TwitchUserAPIResponse {
-    data: [TwitchUser];
+export interface ITwitchUserAPIResponse {
+    data: [ITwitchUser];
 }
 
-export interface TwitchUserResponse {
-	users: [TwitchUser]
+export interface ITwitchUserResponse {
+	users: [ITwitchUser]
 }
 
-export interface TwitchUser {
+export interface ITwitchUser {
 	id: string;
 	login: string;
 	display_name: string;
@@ -25,15 +25,15 @@ export interface TwitchUser {
 	created_at: string;
 }
 
-export interface TwitchClipAPIResponse {
-	data: [TwitchClip];
+export interface ITwitchClipAPIResponse {
+	data: [ITwitchClip];
 }
 
-export interface TwitchClipResponse {
-	clips: [TwitchClip]
+export interface ITwitchClipResponse {
+	clips: [ITwitchClip]
 }
 
-export interface TwitchClip {
+export interface ITwitchClip {
 	id: string;
 	url: string;
 	embed_url: string;
@@ -55,10 +55,10 @@ export interface TwitchClip {
 
 export class HibiscusCupBase {
     private _Name: string;
-    private _Twitch: TwitchUser | undefined;
+    private _Twitch: ITwitchUser | undefined;
     private _YoutubeId: string;
 
-    constructor (name: string, twitch: TwitchUser | undefined, youtubeId: string) {
+    constructor (name: string, twitch: ITwitchUser | undefined, youtubeId: string) {
         this._Name = name;
         this._Twitch = twitch;
         this._YoutubeId = youtubeId;
@@ -86,7 +86,7 @@ export class HibiscusCupBase {
 export class HibiscusCupSponser extends HibiscusCupBase {
     private _Role: string;
 
-    constructor (name: string, twitch: TwitchUser | undefined, youtubeId: string, role: string){
+    constructor (name: string, twitch: ITwitchUser | undefined, youtubeId: string, role: string){
         super(name, twitch, youtubeId);
         this._Role = role;
     }
@@ -99,7 +99,7 @@ export class HibiscusCupSponser extends HibiscusCupBase {
 export class HibiscusCupTeamMember extends HibiscusCupBase {
     private _Team: string;
 
-    constructor (name: string, twitch: TwitchUser, youtubeId: string, team: string){
+    constructor (name: string, twitch: ITwitchUser, youtubeId: string, team: string){
         super(name, twitch, youtubeId);
         this._Team = team;
     }

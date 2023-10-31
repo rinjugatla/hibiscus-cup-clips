@@ -1,8 +1,8 @@
 <script lang="ts">
+	import type { ITwitchClip } from '$lib/types';
 	import { Card, Button } from 'flowbite-svelte';
-	import type { TwitchClip } from '$lib/server/twitch';
 
-	export let clip: TwitchClip;
+	export let clip: ITwitchClip;
 </script>
 
 <Card padding="none">

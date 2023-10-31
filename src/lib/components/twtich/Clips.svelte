@@ -1,8 +1,8 @@
 <script lang='ts'>
-	import type { TwitchClip } from "$lib/server/twitch";
     import Clip from '$lib/components/twtich/Clip.svelte'
+	import type { ITwitchClip } from '$lib/types';
 
-    export let clips: [TwitchClip];
+    export let clips: [ITwitchClip];
 </script>
 
 <div class="grid grid-cols-3 gap-4 content-stretch">

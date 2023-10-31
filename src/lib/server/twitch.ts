@@ -1,4 +1,4 @@
-import type {  TwitchClipAPIResponse, TwitchClipResponse, TwitchTokenResponse, TwitchUserAPIResponse, TwitchUserResponse } from '$lib/types';
+import type { ITwitchClipAPIResponse, ITwitchClipResponse, ITwitchTokenResponse, ITwitchUserAPIResponse, ITwitchUserResponse } from '$lib/types';
 import axios from 'redaxios';
 
 class TwitchApiSetting {
@@ -35,7 +35,7 @@ class TwitchToken {
 	 * @param expires 期限
 	 * @param tokenType トークンタイプ
 	 */
-	constructor(data: TwitchTokenResponse) {
+	constructor(data: ITwitchTokenResponse) {
 		this._AccessToken = data.access_token;
 		this._ExpiresIn = data.expires_in;
 		this._TokenType = data.token_type;
@@ -82,7 +82,7 @@ export class TwitchApi {
 		}
 
 		const url = 'https://id.twitch.tv/oauth2/token';
-		const response = await axios.post<TwitchTokenResponse>(url, {
+		const response = await axios.post<ITwitchTokenResponse>(url, {
 			client_id: this._Setting.ClientId,
 			client_secret: this._Setting.ClientSecret,
 			grant_type: 'client_credentials'
@@ -92,12 +92,12 @@ export class TwitchApi {
 		console.log('refreshed token.');
 	}
 
-	async getUser(names: [string]): Promise<TwitchUserResponse> {
+	async getUser(names: [string]): Promise<ITwitchUserResponse> {
 		await this.refreshToken();
 		const url = 'https://api.twitch.tv/helix/users';
 
 		const userNameParams = this.createUserNameParams(names);
-		const response = await axios.get<TwitchUserAPIResponse>(url, {
+		const response = await axios.get<ITwitchUserAPIResponse>(url, {
 			headers: {
 				Authorization: this._Token!.token,
 				'Client-Id': this._Setting.ClientId
@@ -116,11 +116,11 @@ export class TwitchApi {
 		return params;
 	}
 
-	async getClips(id: number): Promise<TwitchClipResponse> {
+	async getClips(id: number): Promise<ITwitchClipResponse> {
 		await this.refreshToken();
 
 		const url = 'https://api.twitch.tv/helix/clips';
-		const response = await axios.get<TwitchClipAPIResponse>(url, {
+		const response = await axios.get<ITwitchClipAPIResponse>(url, {
 			headers: {
 				Authorization: this._Token!.token,
 				'Client-Id': this._Setting.ClientId

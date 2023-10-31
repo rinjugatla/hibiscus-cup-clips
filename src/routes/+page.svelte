@@ -2,7 +2,7 @@
 	import axios from 'redaxios';
 	import { HIBISCUS_CUP_MEMBER, HIBISCUS_CUP_SPONSER } from '$lib/member';
 	import { onMount } from 'svelte';
-	import { HibiscusCupTeamMember, HibiscusCupSponser, type TwitchUser, type TwitchUserResponse } from '$lib/types';
+	import { HibiscusCupTeamMember, HibiscusCupSponser, type ITwitchUser, type ITwitchUserResponse } from '$lib/types';
 
     let sponserProfiles: HibiscusCupSponser[];
     let teamMemberProfiles: HibiscusCupTeamMember[];
@@ -37,8 +37,8 @@
         return sponserProfiles;
     }
 
-    const getTwitchUsers = async (userNames: string[]): Promise<TwitchUser[]> => {
-        const response = await axios.post<TwitchUserResponse>(
+    const getTwitchUsers = async (userNames: string[]): Promise<ITwitchUser[]> => {
+        const response = await axios.post<ITwitchUserResponse>(
             '/api/twitch/users',
             { names: userNames }
         );
