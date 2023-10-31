@@ -1,5 +1,7 @@
+import type { IHibiscusCupMemberInfo, IHibiscusCupSponserInfo } from "./types";
+
 // 企画者
-export const HIBISCUS_CUP_SPONSER = [
+export const HIBISCUS_CUP_SPONSER: IHibiscusCupSponserInfo[] = [
     { role: '主催', name: 'りえぺこ', twitch: 'riepeko', twitter: 'Riepeko_yolo', video_id: ['1956481664'], profile_image: '1682691613531983872/PW3FWKlF.jpg' },
 	{ role: '企画', name: 'だいん', twitch: '', twitter: 'DAiN87006586', video_id: [], profile_image: '1654471480238022658/ntX9r7Qb.jpg' },
 	{ role: '運営', name: 'Aihara games', twitch: 'aiharagames', twitter: 'AiharaGames', video_id: [], profile_image: '1437063219051319296/5AKYEjbs.jpg' },
@@ -10,7 +12,7 @@ export const HIBISCUS_CUP_SPONSER = [
 ];
 
 // 参加者
-export const HIBISCUS_CUP_MEMBER = [
+export const HIBISCUS_CUP_MEMBER: IHibiscusCupMemberInfo[] = [
 	{ team: 'A', name: '蒼音カノン', twtich: 'aone_kanon', twitter: 'aone_kanon', video_id: ['1956475542', '1956530908'], profile_image: '1608024811690946569/5eMyuB-c.jpg' },
 	{ team: 'A', name: 'あぷべり', twtich: 'appleberry_xx', twitter: 'snoopy_gamble', video_id: [], profile_image: '1690862458540609536/TeKhdcYc.jpg' },
 	{ team: 'B', name: 'るぴぃ', twtich: 'iamrupi', twitter: 'iamrupii', video_id: ['1956470883', ], profile_image: '1712565369901359104/h2Cvj4Wz.jpg' },

@@ -108,3 +108,21 @@ export class HibiscusCupTeamMember extends HibiscusCupBase {
         return this._Team;
     }
 }
+
+export interface IHibiscusCupSponserInfo {
+    role: string;
+    name: string;
+    twitch: string;
+    twitter: string;
+    video_id: string[];
+    profile_image: string;
+}
+
+export interface IHibiscusCupMemberInfo {
+    team: string;
+    name: string;
+    twtich: string;
+    twitter: string;
+    video_id: string[];
+    profile_image: string;
+}
