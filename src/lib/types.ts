@@ -121,7 +121,7 @@ export interface IHibiscusCupSponserInfo {
 export interface IHibiscusCupMemberInfo {
     team: string;
     name: string;
-    twtich: string;
+    twitch: string;
     twitter: string;
     video_id: string[];
     profile_image: string;
