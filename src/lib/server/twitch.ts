@@ -1,7 +1,7 @@
 import type { ITwitchClipAPIResponse, ITwitchClipResponse, ITwitchTokenResponse, ITwitchUserAPIResponse, ITwitchUserResponse } from '$lib/types';
 import axios from 'redaxios';
 
-class TwitchApiSetting {
+export class TwitchApiSetting {
 	private _ClientId: string;
 	private _ClientSecret: string;
 

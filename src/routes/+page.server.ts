@@ -1,7 +1,6 @@
 import { CLIENT_ID, CLIENT_SECRET } from '$env/static/private';
-import { TwitchApi } from '$lib/server/twitch';
+import { TwitchApi, TwitchApiSetting } from '$lib/server/twitch';
 import { twitchApi } from '$lib/store';
-import { TwitchApiSetting } from '$lib/types';
 
 // TwitchAPI初期化
 twitchApi.subscribe((value) => {
