@@ -9,25 +9,17 @@
 </script>
 
 <div class="flex justify-center flex-wrap">
-    {#each sponsers as sponser}
-        <Sponser {sponser} />
-    {/each}
+    <Sponser {sponsers} />
 </div>
 
 <div class="flex justify-center flex-wrap">
-    {#each plans as plan}
-        <Sponser sponser={plan} />
-    {/each}
+    <Sponser sponsers={plans} />
 </div>
 
 <div class="flex justify-center flex-wrap">
-    {#each managers as manager}
-        <Sponser sponser={manager} />
-    {/each}
+    <Sponser sponsers={managers} />
 </div>
 
 <div class="flex justify-center flex-wrap">
-    {#each designers as designer}
-        <Sponser sponser={designer} />
-    {/each}
+    <Sponser sponsers={designers} />
 </div>
