@@ -24,7 +24,8 @@ const config = {
 					800: '#CC4522',
 					900: '#A5371B'
 				},
-				hibiscus_cup_theme: '#e7b167'
+				hibiscus_cup_theme: '#e7b167',
+				hibiscus_cup_theme_header: '#e7982b'
 			}
 		}
 	}
