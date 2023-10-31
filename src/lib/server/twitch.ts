@@ -1,6 +1,7 @@
+import type {  TwitchClipAPIResponse, TwitchClipResponse, TwitchTokenResponse, TwitchUserAPIResponse, TwitchUserResponse } from '$lib/types';
 import axios from 'redaxios';
 
-export class TwitchApiSetting {
+class TwitchApiSetting {
 	private _ClientId: string;
 	private _ClientSecret: string;
 
@@ -58,61 +59,6 @@ class TwitchToken {
 		const param = `Bearer ${this._AccessToken}`;
 		return param;
 	}
-}
-
-export interface TwitchTokenResponse {
-	access_token: string;
-	expires_in: number;
-	token_type: string;
-}
-
-export interface TwitchUserAPIResponse {
-    data: [TwitchUser];
-}
-
-export interface TwitchUserResponse {
-	users: [TwitchUser]
-}
-
-export interface TwitchUser {
-	id: string;
-	login: string;
-	display_name: string;
-	type: string;
-	broadcaster_type: string;
-	description: string;
-	profile_image_url: string;
-	offline_image_url: string;
-	view_count: number;
-	created_at: string;
-}
-
-export interface TwitchClipAPIResponse {
-	data: [TwitchClip];
-}
-
-export interface TwitchClipResponse {
-	clips: [TwitchClip]
-}
-
-export interface TwitchClip {
-	id: string;
-	url: string;
-	embed_url: string;
-	broadcaster_id: string;
-	broadcaster_name: string;
-	creator_id: string;
-	creator_name: string;
-	video_id: string;
-	game_id: string;
-	language: string;
-	title: string;
-	view_count: number;
-	created_at: string;
-	thumbnail_url: string;
-	duration: number;
-	vod_offset: number;
-	is_featured: boolean;
 }
 
 export class TwitchApi {

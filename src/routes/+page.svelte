@@ -1,67 +1,11 @@
 <script lang="ts">
 	import axios from 'redaxios';
-	import type { TwitchUser, TwitchUserResponse } from '$lib/server/twitch';
 	import { HIBISCUS_CUP_MEMBER, HIBISCUS_CUP_SPONSER } from '$lib/member';
 	import { onMount } from 'svelte';
+	import { HibiscusCupTeamMember, HibiscusCupSponser, type TwitchUser, type TwitchUserResponse } from '$lib/types';
 
     let sponserProfiles: HibiscusCupSponser[];
     let teamMemberProfiles: HibiscusCupTeamMember[];
-
-    class HibiscusCupBase {
-        private _Name: string;
-        private _Twitch: TwitchUser | undefined;
-        private _YoutubeId: string;
-
-        constructor (name: string, twitch: TwitchUser | undefined, youtubeId: string) {
-            this._Name = name;
-            this._Twitch = twitch;
-            this._YoutubeId = youtubeId;
-        }
-
-        get Name (): string {
-            return this._Name;
-        }
-
-        get TwitchProfileImageLink (): string | undefined {
-            return this._Twitch?.profile_image_url;
-        }
-
-        // 自己紹介
-        get Description (): string | undefined {
-            return this._Twitch?.description
-        }
-
-        get YoutubeLink (): string {
-            const link = `https://www.youtube.com/${this._YoutubeId}`;
-            return link;
-        }
-    }
-
-    class HibiscusCupSponser extends HibiscusCupBase {
-        private _Role: string;
-
-        constructor (name: string, twitch: TwitchUser | undefined, youtubeId: string, role: string){
-            super(name, twitch, youtubeId);
-            this._Role = role;
-        }
-
-        get Role(): string {
-            return this._Role;
-        }
-    }
-
-    class HibiscusCupTeamMember extends HibiscusCupBase {
-        private _Team: string;
-
-        constructor (name: string, twitch: TwitchUser, youtubeId: string, team: string){
-            super(name, twitch, youtubeId);
-            this._Team = team;
-        }
-
-        get Team(): string {
-            return this._Team;
-        }
-    }
 
     const getTeamMemberProfiles = async (): Promise<HibiscusCupTeamMember[]> => {
         const userNames = HIBISCUS_CUP_MEMBER.map((member) => member.twtich);
