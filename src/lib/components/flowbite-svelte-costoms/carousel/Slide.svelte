@@ -43,8 +43,6 @@
   {#key streamInfo}
       <iframe
       src="https://player.twitch.tv/?video=v{streamInfo.video_id}&parent=localhost"
-        height="<height>"
-        width="<width>"
         allowfullscreen
         title={streamInfo.title}
         transition:transition={{}} {...$$restProps} class={imgClass}>
@@ -60,8 +58,6 @@
   {#key streamInfo}
       <iframe
         src="https://player.twitch.tv/?video=v{streamInfo.video_id}&parent=localhost"
-          height="<height>"
-          width="<width>"
           allowfullscreen
           title={streamInfo.title}
           {...$$restProps} out:fly={transitionSlideOut} in:fly={transitionSlideIn} class={imgClass}>
