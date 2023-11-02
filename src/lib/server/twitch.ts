@@ -1,4 +1,4 @@
-import type { ITwitchClipAPIResponse, ITwitchClipResponse, ITwitchTokenResponse, ITwitchUserAPIResponse, ITwitchUserResponse } from '$lib/types';
+import type { ITwitchClipAPIResponse, ITwitchClipResponse, ITwitchTokenResponse, ITwitchUserAPIResponse, ITwitchUserResponse, ITwitchVideoAPIResponse, ITwitchVideoResponse } from '$lib/types';
 import axios from 'redaxios';
 
 export class TwitchApiSetting {
@@ -131,5 +131,29 @@ export class TwitchApi {
 		});
 		const clips = {clips: response.data.data};
 		return clips;
+	}
+	
+	async getVideos(ids: string[]): Promise<ITwitchVideoResponse> {
+		await this.refreshToken();
+
+		const url = 'https://api.twitch.tv/helix/videos';
+		const idsParams = this.createVideoIdsParams(ids);
+		const response = await axios.get<ITwitchVideoAPIResponse>(url, {
+			headers: {
+				Authorization: this._Token!.token,
+				'Client-Id': this._Setting.ClientId
+			},
+			params: idsParams
+		});
+		const videos = {videos: response.data.data};
+		return videos;
+	}
+
+	private createVideoIdsParams(ids: string[]): URLSearchParams {
+		const params = new URLSearchParams();
+		for (const id of ids) {
+			params.append('id', id);
+		}
+		return params;
 	}
 }

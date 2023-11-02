@@ -33,6 +33,34 @@ export interface ITwitchClipResponse {
 	clips: [ITwitchClip]
 }
 
+export interface ITwitchVideo {
+    id: string;
+    stream_id: string;
+    user_id: string;
+    user_login: string;
+    user_name: string;
+    title: string;
+    description: string;
+    created_at: string; // ex. "2023-10-21T09:00:14Z"
+    published_at: string; // ex. "2023-10-21T09:00:14Z",
+    url: string;
+    thumbnail_url: string; // ex. "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/fb7669f5d0a34c0e8e41_iamrupi_42944287355_1697878809//thumb/thumb0-%{width}x%{height}.jpg",
+    viewable: string;
+    view_count: number;
+    language: string;
+    type: string;
+    duration: string;
+    muted_segments: object[];
+}
+
+export interface ITwitchVideoAPIResponse {
+    data: ITwitchVideo[]
+}
+
+export interface ITwitchVideoResponse {
+    videos: ITwitchVideo[]
+}
+
 export interface ITwitchClip {
 	id: string;
 	url: string;
