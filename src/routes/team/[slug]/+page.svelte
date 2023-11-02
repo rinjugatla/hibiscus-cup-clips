@@ -23,7 +23,7 @@
 
     const getTeamUsers = async (teamCode: string): Promise<[ITwitchUser]> => {
         const teamUsers = HIBISCUS_CUP_MEMBER.filter((member) => member.team === teamCode);
-        const twitchUserNames = teamUsers.map((user) => user.twtich);
+        const twitchUserNames = teamUsers.map((user) => user.twitch);
         const response = await axios.post<ITwitchUserResponse>(
             '/api/twitch/users',
             { names: twitchUserNames }
