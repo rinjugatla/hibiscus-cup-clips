@@ -71,7 +71,7 @@
 </script>
 
 <div class="flex flex-col items-center">
-    <div class="max-w-4xl space-y-4">
+    <div class="max-w-7xl space-y-4">
         <Carousel {images} {streamInfos} {forward} transition={null} slideDuration={500} let:Controls bind:index>
             <Controls />
         </Carousel>

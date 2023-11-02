@@ -32,7 +32,7 @@
   $: selectedStreamInfo = images[index] == null ? null : streamInfos[images[index].alt!];
 
   // Carousel
-  let divClass: string = 'grid overflow-hidden relative rounded-lg h-[500px]';
+  let divClass: string = 'grid overflow-hidden relative rounded-lg h-[600px]';
   export let imgClass: string = '';
 
   const dispatch = createEventDispatcher();
