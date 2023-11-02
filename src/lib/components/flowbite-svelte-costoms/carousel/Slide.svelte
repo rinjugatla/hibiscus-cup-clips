@@ -11,7 +11,7 @@
 
   type TransitionFunc = (node: HTMLElement, params: any) => TransitionConfig;
 
-  export let streamInfo: IStreamInfo;
+  export let streamInfo: IStreamInfo | null;
   export let image: HTMLImgAttributes;
   export let transition: TransitionFunc | null = null; // Optional transition function, overrides default slide transition
 
