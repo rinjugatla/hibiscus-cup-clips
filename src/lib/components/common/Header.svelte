@@ -16,8 +16,5 @@
 		<NavLi href="/sponsers">Sponsers</NavLi>
 		<NavLi href="/teams">Teams</NavLi>
         <NavLi href="/streams">Streams</NavLi>
-        <NavLi href="/clips">Clips</NavLi>
-		<NavLi href="/team_ranking">Team ranking</NavLi>
-		<NavLi href="/clip_ranking">Clip ranking</NavLi>
 	</NavUl>
 </Navbar>
