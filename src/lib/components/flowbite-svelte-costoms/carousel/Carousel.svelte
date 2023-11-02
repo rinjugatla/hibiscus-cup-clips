@@ -15,7 +15,6 @@
   import type { TransitionConfig } from 'svelte/transition';
   import { twMerge } from 'tailwind-merge';
   import Controls from './Controls.svelte';
-  import Indicators from './Indicators.svelte';
   import Slide from './Slide.svelte';
   import { canChangeSlide } from './CarouselSlide';
 
@@ -203,7 +202,7 @@
       <Slide image={images[index]} class={imgClass} {transition} />
     </slot>
   </div>
-  <slot {index} {Controls} {Indicators} />
+  <slot {index} {Controls} />
 </div>
 
 <!--
