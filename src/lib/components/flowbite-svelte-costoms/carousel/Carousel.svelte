@@ -17,16 +17,19 @@
   import Controls from './Controls.svelte';
   import Slide from './Slide.svelte';
   import { canChangeSlide } from './CarouselSlide';
+	import type { IStreamInfos } from '$lib/types';
 
   type TransitionFunc = (node: HTMLElement, params: any) => TransitionConfig;
   const SLIDE_DURATION_RATIO = 0.25; // TODO: Expose one day?
 
   export let images: HTMLImgAttributes[];
+  export let streamInfos: IStreamInfos;
   export let index: number = 0;
   export let slideDuration: number = 1000;
   export let transition: TransitionFunc | null;
   export let duration: number = 0;
   export let ariaLabel: string = 'Draggable Carousel';
+  $: selectedStreamInfo = images[index] == null ? null : streamInfos[images[index].alt!];
 
   // Carousel
   let divClass: string = 'grid overflow-hidden relative rounded-lg h-[500px]';
@@ -185,7 +188,6 @@
         };
 </script>
 
-<!-- Preload all Carousel images for improved responsivity -->
 <svelte:head>
   {#if images.length > 0}
     {#each images as image}
@@ -194,12 +196,11 @@
   {/if}
 </svelte:head>
 
-<!-- The move listeners go here, so things keep working if the touch strays out of the element. -->
 <svelte:document on:mousemove={onDragMove} on:mouseup={onDragStop} on:touchmove={onDragMove} on:touchend={onDragStop} />
 <div bind:this={carouselDiv} class="relative mt-2" on:mousedown|nonpassive={onDragStart} on:touchstart|nonpassive={onDragStart} on:mousemove={onDragMove} on:mouseup={onDragStop} on:touchmove={onDragMove} on:touchend={onDragStop} role="button" aria-label={ariaLabel} tabindex="0">
   <div {...$$restProps} class={twMerge(divClass, activeDragGesture === undefined ? 'transition-transform' : '', $$props.class)} use:loop={duration}>
     <slot name="slide" {Slide} {index}>
-      <Slide image={images[index]} class={imgClass} {transition} />
+      <Slide image={images[index]} streamInfo={selectedStreamInfo} class={imgClass} {transition} />
     </slot>
   </div>
   <slot {index} {Controls} />
