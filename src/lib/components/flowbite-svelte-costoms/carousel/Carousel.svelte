@@ -29,7 +29,7 @@
   export let ariaLabel: string = 'Draggable Carousel';
 
   // Carousel
-  let divClass: string = 'grid overflow-hidden relative rounded-lg h-56 sm:h-64 xl:h-80 2xl:h-96';
+  let divClass: string = 'grid overflow-hidden relative rounded-lg h-[500px]';
   export let imgClass: string = '';
 
   const dispatch = createEventDispatcher();
