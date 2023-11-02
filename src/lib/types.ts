@@ -154,3 +154,16 @@ export interface IHibiscusCupMemberInfo {
     video_id: string[];
     profile_image: string;
 }
+
+export interface IStreamInfos {
+    [key: string]: 
+    IStreamInfo
+}
+
+export interface IStreamInfo {
+    twitch: string,
+    thumbnail_url: string, 
+    url: string,
+    title: string,
+    video_id: string
+}
