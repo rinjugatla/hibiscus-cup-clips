@@ -5,11 +5,13 @@
   import { getContext } from 'svelte';
   import type { Writable } from 'svelte/store';
   import type { State } from './Carousel.svelte';
+	import type { IStreamInfo } from '$lib/types';
 
   const state = getContext<Writable<State>>('state');
 
   type TransitionFunc = (node: HTMLElement, params: any) => TransitionConfig;
 
+  export let streamInfo: IStreamInfo;
   export let image: HTMLImgAttributes;
   export let transition: TransitionFunc | null = null; // Optional transition function, overrides default slide transition
 
@@ -33,13 +35,39 @@
 </script>
 
 {#if transition}
-  {#key image}
-    <img alt="..." {...image} transition:transition={{}} {...$$restProps} class={imgClass} />
-  {/key}
+  {#if streamInfo == null}
+    {#key image}
+      <img alt="..." {...image} transition:transition={{}} {...$$restProps} class={imgClass} />
+    {/key}
+  {:else}
+  {#key streamInfo}
+      <iframe
+      src="https://player.twitch.tv/?video=v{streamInfo.video_id}&parent=localhost"
+        height="<height>"
+        width="<width>"
+        allowfullscreen
+        title={streamInfo.title}
+        transition:transition={{}} {...$$restProps} class={imgClass}>
+    </iframe>
+    {/key}
+  {/if}
 {:else}
-  {#key image}
-    <img alt="..." {...image} {...$$restProps} out:fly={transitionSlideOut} in:fly={transitionSlideIn} class={imgClass} />
-  {/key}
+  {#if streamInfo == null}
+      {#key image}
+        <img alt="..." {...image} {...$$restProps} out:fly={transitionSlideOut} in:fly={transitionSlideIn} class={imgClass} />
+      {/key}
+  {:else}
+  {#key streamInfo}
+      <iframe
+        src="https://player.twitch.tv/?video=v{streamInfo.video_id}&parent=localhost"
+          height="<height>"
+          width="<width>"
+          allowfullscreen
+          title={streamInfo.title}
+          {...$$restProps} out:fly={transitionSlideOut} in:fly={transitionSlideIn} class={imgClass}>
+      </iframe>
+    {/key}
+  {/if}
 {/if}
 
 <!--
