@@ -5,18 +5,13 @@
 
 	import Carousel from '$lib/components/flowbite-svelte-costoms/carousel/Carousel.svelte';
 	import Thumbnails from '$lib/components/flowbite-svelte-costoms/carousel/Thumbnails.svelte';
-	import type { ITwitchVideoResponse } from '$lib/types';
+	import type { IStreamInfos, ITwitchVideoResponse } from '$lib/types';
 	import { onMount } from 'svelte';
 
 	let index = 0;
     let selectedImage: HTMLImgAttributes;
 	let forward = true; // sync animation direction between Thumbnails and Carousel
-    let streamInfos: {
-        [key: string]: 
-        {
-            thumbnail_url: string, 
-            url: string
-        }} = {};
+    let streamInfos: IStreamInfos = {};
 
 	const profile_image_prefix = 'https://pbs.twimg.com/profile_images/';
 	const createProfileImageAttributes = (): HTMLImgAttributes[] => {
@@ -61,8 +56,11 @@
 
         for (const stream of streams) {
             streamInfos[stream.user_login] = {
+                twitch: stream.user_login,
                 thumbnail_url: stream.thumbnail_url,
-                url: stream.url
+                url: stream.url,
+                title: stream.title,
+                video_id: stream.id
             }
         }
     };
@@ -74,7 +72,7 @@
 
 <div class="flex flex-col items-center">
     <div class="max-w-4xl space-y-4">
-        <Carousel {images} {forward} transition={null} slideDuration={500} let:Controls bind:index>
+        <Carousel {images} {streamInfos} {forward} transition={null} slideDuration={500} let:Controls bind:index>
             <Controls />
         </Carousel>
         <Thumbnails {images} {forward} throttleDelay={250} imgClass="h-[50px] w-auto" bind:index bind:selectedImage />
