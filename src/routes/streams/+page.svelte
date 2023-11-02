@@ -33,7 +33,7 @@
 	const images = createProfileImageAttributes();
 </script>
 
-<div class="flex flex-col items-center h-full">
+<div class="flex flex-col items-center">
     <div class="max-w-4xl space-y-4">
         <Carousel {images} {forward} transition={null} slideDuration={500} let:Controls bind:index>
             <Controls />
