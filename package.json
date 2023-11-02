@@ -36,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"flowbite-svelte-blocks": "^0.5.1",
 		"redaxios": "^0.5.1",
 		"vite-plugin-mkcert": "^1.16.0"
 	}
