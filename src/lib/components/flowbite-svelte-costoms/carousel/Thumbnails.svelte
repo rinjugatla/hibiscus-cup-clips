@@ -5,6 +5,7 @@
 
   export let images: HTMLImgAttributes[] = [];
   export let index: number = 0;
+  export let selectedImage: HTMLImgAttributes;
   export let ariaLabel: string = 'Click to view image';
   export let imgClass: string = '';
   export let throttleDelay: number = 650; // ms
@@ -25,6 +26,7 @@
   };
 
   $: index = (index + images.length) % images.length;
+  $: selectedImage = images[index];
 </script>
 
 <div class={twMerge('flex flex-row justify-center bg-gray-100 w-full', $$props.class)}>
