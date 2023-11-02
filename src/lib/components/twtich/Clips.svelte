@@ -5,7 +5,7 @@
     export let clips: [ITwitchClip];
 </script>
 
-<div class="grid grid-cols-3 gap-4 content-stretch">
+<div class="flex flex-wrap  gap-4 content-stretch">
     {#each clips as clip}
         <Clip {clip}></Clip>
     {/each}
