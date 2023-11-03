@@ -55,13 +55,7 @@
         const streams = await getStreams();
 
         for (const stream of streams) {
-            streamInfos[stream.user_login] = {
-                twitch: stream.user_login,
-                thumbnail_url: stream.thumbnail_url,
-                url: stream.url,
-                title: stream.title,
-                video_id: stream.id
-            }
+            streamInfos[stream.user_login] = stream
         }
     };
     
