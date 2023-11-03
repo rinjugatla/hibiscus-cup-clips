@@ -43,7 +43,7 @@
   {:else}
   {#key streamInfo}
       <iframe
-      src="https://player.twitch.tv/?video=v{streamInfo.video_id}&parent=localhost"
+      src="https://player.twitch.tv/?video=v{streamInfo.video_id}&parent={$page.url.hostname}"
         allowfullscreen
         title={streamInfo.title}
         transition:transition={{}} {...$$restProps} class={imgClass}>
