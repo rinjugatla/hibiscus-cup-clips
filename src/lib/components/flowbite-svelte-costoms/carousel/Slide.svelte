@@ -6,6 +6,7 @@
   import type { Writable } from 'svelte/store';
   import type { State } from './Carousel.svelte';
 	import type { IStreamInfo } from '$lib/types';
+  import { page } from '$app/stores';
 
   const state = getContext<Writable<State>>('state');
 
@@ -57,7 +58,7 @@
   {:else}
   {#key streamInfo}
       <iframe
-        src="https://player.twitch.tv/?video=v{streamInfo.video_id}&parent=localhost"
+        src="https://player.twitch.tv/?video=v{streamInfo.video_id}&parent={$page.url.hostname}"
           allowfullscreen
           title={streamInfo.title}
           {...$$restProps} out:fly={transitionSlideOut} in:fly={transitionSlideIn} class={imgClass}>
