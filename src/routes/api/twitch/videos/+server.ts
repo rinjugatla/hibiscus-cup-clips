@@ -5,7 +5,7 @@ import { get } from "svelte/store";
 export async function POST({ request }): Promise<Response> {
     console.log('/api/twitch/videos request', request);
 
-    const isSelfRequest = request.credentials == 'same-origin';
+    const isSelfRequest = request.headers.get('sec-fetch-site') === 'same-origin';
     if (!isSelfRequest){ return json(new Response()); }
     
     const api = get(twitchApi);
