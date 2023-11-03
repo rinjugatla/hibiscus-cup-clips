@@ -48,6 +48,7 @@
         );
 
         const streams = response.data.videos;
+        console.log('streams', streams);
         return streams;
     };
 
