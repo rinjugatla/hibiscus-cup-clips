@@ -1,7 +1,9 @@
 <script lang="ts">
 	import type { IHibiscusCupMemberInfo } from '$lib/types';
     import { Card, Dropdown, DropdownItem, Avatar, Button } from 'flowbite-svelte';
-
+    import TwitchLinkIcon from '$lib/components/link-icon/TwitchLinkIcon.svelte';
+    import TwitterLinkIcon from '$lib/components/link-icon/TwitterLinkIcon.svelte';
+    
     const twitch_channel_prefix = 'https://www.twitch.tv/';
     const twitter_profile_prefix = 'https://twitter.com/';
     const profile_image_prefix = 'https://pbs.twimg.com/profile_images/';
@@ -18,8 +20,8 @@
                 <Avatar size="lg" src="{profile_image_prefix}{member.profile_image}" />
                 <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{member.name}</h5>
                 <div class="flex mt-4 space-x-3 lg:mt-6">
-                    <Button color="purple" disabled={member.twitch == ''} on:click={() =>  {window.open(twitch_channel_prefix + member.twitch)}}>Twitch</Button>
-                    <Button color="blue" on:click={() =>  {window.open(twitter_profile_prefix + member.twitter)}}>Twitter</Button>
+                    <TwitchLinkIcon name={member.twitch} />
+                    <TwitterLinkIcon name={member.twitter} />
                 </div>
             </div>
         {/each}

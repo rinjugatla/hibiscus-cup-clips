@@ -1,13 +1,12 @@
 <script lang="ts">
 	import type { IHibiscusCupSponserInfo } from '$lib/types';
     import { Card, Avatar, Button } from 'flowbite-svelte';
+    import TwitchLinkIcon from '$lib/components/link-icon/TwitchLinkIcon.svelte';
+    import TwitterLinkIcon from '$lib/components/link-icon/TwitterLinkIcon.svelte';
 
-    const twitch_channel_prefix = 'https://www.twitch.tv/';
-    const twitter_profile_prefix = 'https://twitter.com/';
     const profile_image_prefix = 'https://pbs.twimg.com/profile_images/';
 
     export let sponsers: IHibiscusCupSponserInfo[];
-    let role = sponsers.map((sponser) => sponser.role)[0];
 </script>
 
 {#each sponsers as sponser}
@@ -18,8 +17,8 @@
                 <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{sponser.name}</h5>
                 <span class="text-sm text-gray-500 dark:text-gray-400">{sponser.role}</span>
                 <div class="flex mt-4 space-x-3 lg:mt-6">
-                    <Button color="purple" disabled={sponser.twitch == ''} on:click={() =>  {window.open(twitch_channel_prefix + sponser.twitch)}}>Twitch</Button>
-                    <Button color="blue" on:click={() =>  {window.open(twitter_profile_prefix + sponser.twitter)}}>Twitter</Button>
+                    <TwitchLinkIcon name={sponser.twitch} />
+                    <TwitterLinkIcon name={sponser.twitter} />
                 </div>
             </div>
         </Card>
