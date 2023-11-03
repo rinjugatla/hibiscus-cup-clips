@@ -5,14 +5,14 @@
   import { getContext } from 'svelte';
   import type { Writable } from 'svelte/store';
   import type { State } from './Carousel.svelte';
-	import type { IStreamInfo } from '$lib/types';
   import { page } from '$app/stores';
+	import type { ITwitchVideo } from '$lib/types';
 
   const state = getContext<Writable<State>>('state');
 
   type TransitionFunc = (node: HTMLElement, params: any) => TransitionConfig;
 
-  export let streamInfo: IStreamInfo | null;
+  export let streamInfo: ITwitchVideo | null;
   export let image: HTMLImgAttributes;
   export let transition: TransitionFunc | null = null; // Optional transition function, overrides default slide transition
 
@@ -43,7 +43,7 @@
   {:else}
   {#key streamInfo}
       <iframe
-      src="https://player.twitch.tv/?video=v{streamInfo.video_id}&parent={$page.url.hostname}"
+      src="https://player.twitch.tv/?video=v{streamInfo.id}&parent={$page.url.hostname}"
         allowfullscreen
         title={streamInfo.title}
         transition:transition={{}} {...$$restProps} class={imgClass}>
@@ -58,7 +58,7 @@
   {:else}
   {#key streamInfo}
       <iframe
-        src="https://player.twitch.tv/?video=v{streamInfo.video_id}&parent={$page.url.hostname}"
+        src="https://player.twitch.tv/?video=v{streamInfo.id}&parent={$page.url.hostname}"
           allowfullscreen
           title={streamInfo.title}
           {...$$restProps} out:fly={transitionSlideOut} in:fly={transitionSlideIn} class={imgClass}>

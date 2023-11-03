@@ -157,13 +157,5 @@ export interface IHibiscusCupMemberInfo {
 
 export interface IStreamInfos {
     [key: string]: 
-    IStreamInfo
-}
-
-export interface IStreamInfo {
-    twitch: string,
-    thumbnail_url: string, 
-    url: string,
-    title: string,
-    video_id: string
+    ITwitchVideo
 }
