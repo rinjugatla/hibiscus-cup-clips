@@ -39,6 +39,7 @@
 	"dependencies": {
 		"flowbite-svelte-blocks": "^0.5.1",
 		"redaxios": "^0.5.1",
+		"svelte-coreui-icons": "^0.3.4",
 		"vite-plugin-mkcert": "^1.16.0"
 	}
 }
