@@ -12,7 +12,7 @@
 	const github_url = 'https://github.com/rinjugatla/hibiscus-cup-clips';
 </script>
 
-<div class="flex flex-col">
+<div class="mt-auto">
 	<Footer footerType="socialmedia" >
 		<div class="sm:flex sm:items-center sm:justify-between ">
 			<div class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
