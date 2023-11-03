@@ -4,8 +4,6 @@
     import TwitchLinkIcon from '$lib/components/link-icon/TwitchLinkIcon.svelte';
     import TwitterLinkIcon from '$lib/components/link-icon/TwitterLinkIcon.svelte';
     
-    const twitch_channel_prefix = 'https://www.twitch.tv/';
-    const twitter_profile_prefix = 'https://twitter.com/';
     const profile_image_prefix = 'https://pbs.twimg.com/profile_images/';
 
     export let members: IHibiscusCupMemberInfo[];
