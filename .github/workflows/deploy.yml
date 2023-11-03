@@ -5,6 +5,10 @@ on:
   pull_request:
     branches: main
 
+env:
+  VITE_CLIENT_ID: ${{ secrets.VITE_CLIENT_ID }}
+  VITE_CLIENT_SECRET: ${{ secrets.VITE_CLIENT_SECRET }}
+
 jobs:
   deploy:
     name: Deploy
