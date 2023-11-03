@@ -9,7 +9,7 @@
     }
 </script>
 
-<div class="grid grid-cols-2 gap-4" >
+<div class="grid grid-cols-3 gap-4" >
     {#each teamCodes as teamCode}
         <div class="flex flex-col items-center">
             <Team members={getTeamMembers(teamCode)} />
