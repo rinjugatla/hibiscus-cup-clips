@@ -7,7 +7,7 @@
 <Navbar class="bg-hibiscus_cup_theme_header">
 	<NavBrand href="/">
 		<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
-			>HibiscusCup Clips</span
+			>HibiscusCup fan</span
 		>
 	</NavBrand>
 	<NavHamburger/>
