@@ -73,6 +73,8 @@
         if (selectedImage == null){ return []; }
 
         const selectedStreamInfo = streamInfos[selectedImage.alt!];
+        if (selectedStreamInfo == null){ return []; }
+        
         const broadcasterId = selectedStreamInfo.user_id;
         const videoIds = getTwitchVideoIds(broadcasterId);
         const response = await axios.post<ITwitchClipResponse>(
