@@ -10,6 +10,7 @@
     import { onMount } from 'svelte';
 
 	let index = 0;
+    let images: HTMLImgAttributes[] = [];
     let selectedImage: HTMLImgAttributes;
 	let forward = true; // sync animation direction between Thumbnails and Carousel
     let streamInfos: IStreamInfos = {};
@@ -21,7 +22,7 @@
     })()
 
 	const profile_image_prefix = 'https://pbs.twimg.com/profile_images/';
-	const createProfileImageAttributes = (): HTMLImgAttributes[] => {
+	const setProfileImageAttributes = () => {
 		let attributes: HTMLImgAttributes[] = [];
         for (const sponser of HIBISCUS_CUP_SPONSER) {
             const hasVideo = sponser.video_id.length > 0;
@@ -39,10 +40,9 @@
 				alt: member.twitch
 			});
 		}
-		return attributes;
+		
+        images = attributes;
 	};
-
-	const images = createProfileImageAttributes();
 
     const getStreams = async () => {
         const sponsersStreamIds = new Set(HIBISCUS_CUP_SPONSER.filter((s) => s.video_id.length > 0).map((s) => s.video_id).flat());
@@ -108,7 +108,9 @@
     }
     
     onMount(async () => {
+        setProfileImageAttributes();
         await setStreamInfo();
+        selectedImage = images[index];
     })
 </script>
 
