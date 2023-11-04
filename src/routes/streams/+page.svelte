@@ -75,7 +75,6 @@
         const selectedStreamInfo = streamInfos[selectedImage.alt!];
         const broadcasterId = selectedStreamInfo.user_id;
         const videoIds = getTwitchVideoIds(broadcasterId);
-        console.log('videoIds', videoIds);
         const response = await axios.post<ITwitchClipResponse>(
             '/api/twitch/clips/videos',
             {
