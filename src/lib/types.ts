@@ -26,11 +26,14 @@ export interface ITwitchUser {
 }
 
 export interface ITwitchClipAPIResponse {
-	data: [ITwitchClip];
+	data: ITwitchClip[];
+    pagination: {
+        cursor?: string
+    }
 }
 
 export interface ITwitchClipResponse {
-	clips: [ITwitchClip]
+	clips: ITwitchClip[]
 }
 
 export interface ITwitchVideo {
@@ -79,6 +82,11 @@ export interface ITwitchClip {
 	duration: number;
 	vod_offset: number;
 	is_featured: boolean;
+}
+
+export interface ICanCreateClipPeriod {
+    start: Date;
+    end: Date;
 }
 
 export class HibiscusCupBase {
