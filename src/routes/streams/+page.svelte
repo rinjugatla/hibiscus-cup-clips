@@ -46,8 +46,8 @@
 	};
 
     const getStreams = async () => {
-        const sponsersStreamIds = new Set(HIBISCUS_CUP_SPONSER.filter((s) => s.video_id.length > 0).map((s) => s.video_id).flat());
-        const memberStreamIds = new Set(HIBISCUS_CUP_MEMBER.filter((m) => m.video_id.length > 0).map((m) => m.video_id).flat())
+        const sponsersStreamIds = new Set(HIBISCUS_CUP_SPONSER.filter((s) => s.video_id.length > 0).map((s) => s.video_id[0]));
+        const memberStreamIds = new Set(HIBISCUS_CUP_MEMBER.filter((m) => m.video_id.length > 0).map((m) => m.video_id[0]));
         const streamIds = [Array.from(sponsersStreamIds), Array.from(memberStreamIds)].flat();
 
         const response = await axios.post<ITwitchVideoResponse>(

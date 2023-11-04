@@ -13,8 +13,7 @@ export const HIBISCUS_CUP_SPONSER: IHibiscusCupSponserInfo[] = [
 
 // 参加者
 export const HIBISCUS_CUP_MEMBER: IHibiscusCupMemberInfo[] = [
-	// todo: 蒼音カノンさんの2つめの動画の表示方法を検討 1956530908
-	{ team: 'A', name: '蒼音カノン', twitch: 'aone_kanon', twitch_id: '682441785', twitter: 'aone_kanon', video_id: ['1956475542'], profile_image: '1608024811690946569/5eMyuB-c.jpg' },
+	{ team: 'A', name: '蒼音カノン', twitch: 'aone_kanon', twitch_id: '682441785', twitter: 'aone_kanon', video_id: ['1956475542', '1956530908'], profile_image: '1608024811690946569/5eMyuB-c.jpg' },
 	{ team: 'A', name: 'あぷべり', twitch: 'appleberry_xx', twitch_id: '617471728', twitter: 'snoopy_gamble', video_id: [], profile_image: '1690862458540609536/TeKhdcYc.jpg' },
 	{ team: 'B', name: 'るぴぃ', twitch: 'iamrupi', twitch_id: '728189924', twitter: 'iamrupii', video_id: ['1956470883', ], profile_image: '1712565369901359104/h2Cvj4Wz.jpg' },
 	{ team: 'B', name: '相生あい', twitch: 'aioi_ai', twitch_id: '133061268', twitter: 'AioiAi_v', video_id: ['1956461868', ], profile_image: '1492124418620813314/q2Baq0_6.jpg' },
