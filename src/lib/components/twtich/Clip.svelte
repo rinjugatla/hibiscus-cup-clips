@@ -1,23 +1,24 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import type { ITwitchClip } from '$lib/types';
 	import { Card, Button } from 'flowbite-svelte';
 
 	export let clip: ITwitchClip;
+	let clicked = false;
 </script>
 
-<Card padding="none">
-    <img class="" src={clip.thumbnail_url} alt={clip.title}>
-	<div class="px-5 pb-5">
-		<a href="/">
-			<h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-				{clip.creator_name}
-			</h5>
-		</a>
-		<div class="flex justify-between items-center">
-			<span class="text-3xl font-bold text-gray-900 dark:text-white">{clip.title}</span>
-			<Button href={clip.url}>Show</Button>
+<div class="m-1 p-2.5 bg-white w-[660px] rounded-md">
+	<div class="flex flex-col">
+		<iframe
+			src="https://clips.twitch.tv/embed?clip={clip.id}&parent={$page.url.hostname}"
+			allowfullscreen
+			preload="metadata"
+			height="360"
+			width="640"
+			title={clip.title}></iframe>
+		<div class="px-5">
+			<h5 class="text-lg text-gray-500">{clip.creator_name}</h5>
+			<span class="text-3xl font-bold text-gray-900">{clip.title}</span>
 		</div>
 	</div>
-</Card>
-
-<!-- <iframe src="${clip.embed_url}&parent=localhost" frameborder={0} allowfullscreen={true} height={378} width={620} title={clip.title}></iframe> -->
+</div>

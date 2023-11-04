@@ -5,16 +5,25 @@
 
 	import Carousel from '$lib/components/flowbite-svelte-costoms/carousel/Carousel.svelte';
 	import Thumbnails from '$lib/components/flowbite-svelte-costoms/carousel/Thumbnails.svelte';
-	import type { IStreamInfos, ITwitchVideoResponse } from '$lib/types';
-	import { onMount } from 'svelte';
+    import Clips from '$lib/components/twtich/Clips.svelte';
+	import type { IStreamInfos, ITwitchClip, ITwitchClipResponse, ITwitchVideoResponse } from '$lib/types';
+    import { onMount } from 'svelte';
+	import { Spinner } from 'flowbite-svelte';
 
 	let index = 0;
+    let images: HTMLImgAttributes[] = [];
     let selectedImage: HTMLImgAttributes;
 	let forward = true; // sync animation direction between Thumbnails and Carousel
     let streamInfos: IStreamInfos = {};
+    let selectedStreamClips: ITwitchClip[];
+    $: (async() => {
+        // 切り替え時後のロード中に別の動画のクリップが表示されるので一度初期化
+        selectedStreamClips = [];
+        selectedStreamClips = await getStreamClips(selectedImage);
+    })()
 
 	const profile_image_prefix = 'https://pbs.twimg.com/profile_images/';
-	const createProfileImageAttributes = (): HTMLImgAttributes[] => {
+	const setProfileImageAttributes = () => {
 		let attributes: HTMLImgAttributes[] = [];
         for (const sponser of HIBISCUS_CUP_SPONSER) {
             const hasVideo = sponser.video_id.length > 0;
@@ -32,10 +41,9 @@
 				alt: member.twitch
 			});
 		}
-		return attributes;
+		
+        images = attributes;
 	};
-
-	const images = createProfileImageAttributes();
 
     const getStreams = async () => {
         const sponsersStreamIds = new Set(HIBISCUS_CUP_SPONSER.filter((s) => s.video_id.length > 0).map((s) => s.video_id).flat());
@@ -58,9 +66,54 @@
             streamInfos[stream.user_login] = stream
         }
     };
+
+    /**
+     * 動画に関連するクリップを取得
+     */
+    const getStreamClips = async (selectedImage: HTMLImgAttributes | null): Promise<ITwitchClip[]>  => {
+        if (selectedImage == null){ return []; }
+
+        const selectedStreamInfo = streamInfos[selectedImage.alt!];
+        if (selectedStreamInfo == null){ return []; }
+
+        const broadcasterId = selectedStreamInfo.user_id;
+        const videoIds = getTwitchVideoIds(broadcasterId);
+        const response = await axios.post<ITwitchClipResponse>(
+            '/api/twitch/clips/videos',
+            {
+                broadcaster_id: broadcasterId,
+                video_ids: videoIds
+            }
+        );
+        
+        const clips = response.data.clips;
+        return clips;
+    }
+
+    /**
+     * Twitch名からVideoIdを取得
+     * @param twitchName Twitch名
+     */
+    const getTwitchVideoIds = (broadcasterId: string): string[] => {
+        const sponsers = HIBISCUS_CUP_SPONSER.filter((sponser) => sponser.twitch_id === broadcasterId);
+        if (sponsers.length > 0){
+            const result = sponsers[0].video_id;
+            return result;
+        }
+
+        const members = HIBISCUS_CUP_MEMBER.filter((member) => member.twitch_id === broadcasterId);
+        if (members.length > 0){
+            const result = members[0].video_id;
+            return result;
+        }
+
+        return [];
+    }
     
     onMount(async () => {
+        setProfileImageAttributes();
         await setStreamInfo();
+        selectedImage = images[index];
     })
 </script>
 
@@ -71,4 +124,12 @@
         </Carousel>
         <Thumbnails {images} {forward} throttleDelay={250} imgClass="h-[50px] w-auto" bind:index bind:selectedImage />
     </div>
+
+    <div class="m-5">
+        {#if (selectedStreamClips === null || selectedStreamClips.length === 0)}
+            <div class="text-center"><Spinner /></div>
+        {:else}
+            <Clips clips={selectedStreamClips} />
+        {/if}
+    </div>   
 </div>
