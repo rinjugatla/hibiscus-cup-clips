@@ -8,6 +8,7 @@
     import Clips from '$lib/components/twtich/Clips.svelte';
 	import type { IStreamInfos, ITwitchClip, ITwitchClipResponse, ITwitchVideoResponse } from '$lib/types';
     import { onMount } from 'svelte';
+	import { Spinner } from 'flowbite-svelte';
 
 	let index = 0;
     let images: HTMLImgAttributes[] = [];
@@ -74,7 +75,7 @@
 
         const selectedStreamInfo = streamInfos[selectedImage.alt!];
         if (selectedStreamInfo == null){ return []; }
-        
+
         const broadcasterId = selectedStreamInfo.user_id;
         const videoIds = getTwitchVideoIds(broadcasterId);
         const response = await axios.post<ITwitchClipResponse>(
@@ -125,8 +126,10 @@
     </div>
 
     <div class="m-5">
-        {#if selectedStreamClips != null && selectedStreamClips.length > 0}
+        {#if (selectedStreamClips === null || selectedStreamClips.length === 0)}
+            <div class="text-center"><Spinner /></div>
+        {:else}
             <Clips clips={selectedStreamClips} />
-        {/if} 
+        {/if}
     </div>   
 </div>
