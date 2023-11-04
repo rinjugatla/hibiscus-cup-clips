@@ -141,6 +141,7 @@ export interface IHibiscusCupSponserInfo {
     role: string;
     name: string;
     twitch: string;
+    twitch_id: string;
     twitter: string;
     video_id: string[];
     profile_image: string;
@@ -150,6 +151,7 @@ export interface IHibiscusCupMemberInfo {
     team: string;
     name: string;
     twitch: string;
+    twitch_id: string;
     twitter: string;
     video_id: string[];
     profile_image: string;
