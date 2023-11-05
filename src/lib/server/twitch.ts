@@ -158,6 +158,7 @@ export class TwitchApi {
 				params: {
 					broadcaster_id: broadcaster_id,
 					started_at: createClipPeriod.start.toISOString(), // RFC3339書式
+					ended_at: createClipPeriod.end.toISOString(),
 					first: '100'
 				}
 			});
