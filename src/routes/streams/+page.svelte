@@ -119,9 +119,7 @@
 
 <div class="flex flex-col items-center">
     <div class="max-w-7xl space-y-4">
-        <Carousel {images} {streamInfos} {forward} transition={null} slideDuration={500} let:Controls bind:index>
-            <Controls />
-        </Carousel>
+        <Carousel {images} {streamInfos} {forward} transition={null} slideDuration={500} bind:index />
         <Thumbnails {images} {forward} throttleDelay={250} imgClass="h-[50px] w-auto" bind:index bind:selectedImage />
     </div>
 
