@@ -1,4 +1,4 @@
-export interface ITwitchTokenResponse {
+export interface ITwitchTokenAPIResponse {
 	access_token: string;
 	expires_in: number;
 	token_type: string;

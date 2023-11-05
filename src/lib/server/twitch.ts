@@ -1,4 +1,4 @@
-import type { ICanCreateClipPeriod, ITwitchClip, ITwitchClipAPIResponse, ITwitchClipResponse, ITwitchTokenResponse, ITwitchUserAPIResponse, ITwitchUserResponse, ITwitchVideo, ITwitchVideoAPIResponse, ITwitchVideoResponse } from '$lib/types';
+import type { ICanCreateClipPeriod, ITwitchClip, ITwitchClipAPIResponse, ITwitchClipResponse, ITwitchTokenAPIResponse, ITwitchUserAPIResponse, ITwitchUserResponse, ITwitchVideo, ITwitchVideoAPIResponse, ITwitchVideoResponse } from '$lib/types';
 import axios from 'redaxios';
 
 export class TwitchApiSetting {
@@ -35,7 +35,7 @@ class TwitchToken {
 	 * @param expires 期限
 	 * @param tokenType トークンタイプ
 	 */
-	constructor(data: ITwitchTokenResponse) {
+	constructor(data: ITwitchTokenAPIResponse) {
 		this._AccessToken = data.access_token;
 		this._ExpiresIn = data.expires_in;
 		this._TokenType = data.token_type;
@@ -82,7 +82,7 @@ export class TwitchApi {
 		}
 
 		const url = 'https://id.twitch.tv/oauth2/token';
-		const response = await axios.post<ITwitchTokenResponse>(url, {
+		const response = await axios.post<ITwitchTokenAPIResponse>(url, {
 			client_id: this._Setting.ClientId,
 			client_secret: this._Setting.ClientSecret,
 			grant_type: 'client_credentials'
