@@ -92,6 +92,10 @@ export class TwitchApi {
 		console.log('refreshed token.');
 	}
 
+	/**
+	 * ユーザ情報を取得
+	 * @param names Twtichユーザ名
+	 */
 	async getUser(names: [string]): Promise<ITwitchUserResponse> {
 		await this.refreshToken();
 		const url = 'https://api.twitch.tv/helix/users';
@@ -108,6 +112,11 @@ export class TwitchApi {
 		return users;
 	}
 
+	/**
+	 * ユーザ名パラメータを作成
+	 * redaxiosのparamsで同じパラメータ名(login=1&login=2)を使用するとURLエンコードしてしまうので対策
+	 * @param names Twtichユーザ名
+	 */
 	private createUserNameParams(names: [string]): URLSearchParams {
 		const params = new URLSearchParams();
 		for (const name of names) {
@@ -116,6 +125,11 @@ export class TwitchApi {
 		return params;
 	}
 
+	/**
+	 * クリップを取得
+	 * @param id 
+	 * @returns 
+	 */
 	async getClips(id: number): Promise<ITwitchClipResponse> {
 		await this.refreshToken();
 
@@ -191,6 +205,10 @@ export class TwitchApi {
 		return result;
 	}
 	
+	/**
+	 * ビデオ情報を取得
+	 * @param ids ビデオID
+	 */
 	async getVideos(ids: string[]): Promise<ITwitchVideoResponse> {
 		await this.refreshToken();
 
