@@ -5,11 +5,11 @@ export interface ITwitchTokenAPIResponse {
 }
 
 export interface ITwitchUserAPIResponse {
-    data: [ITwitchUser];
+    data: ITwitchUser[];
 }
 
 export interface ITwitchUserResponse {
-	users: [ITwitchUser]
+	users: ITwitchUser[]
 }
 
 export interface ITwitchUser {
