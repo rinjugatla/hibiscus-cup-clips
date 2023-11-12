@@ -6,12 +6,11 @@
 	import Carousel from '$lib/components/flowbite-svelte-costoms/carousel/Carousel.svelte';
 	import Thumbnails from '$lib/components/flowbite-svelte-costoms/carousel/Thumbnails.svelte';
     import Clips from '$lib/components/twtich/Clips.svelte';
-	import type { IStreamInfos, ITwitchClip, ITwitchClipResponse, ITwitchVideoResponse } from '$lib/types';
+	import type { IStreamInfos, ITwitchClip, ITwitchClipResponse, ITwitchUser, ITwitchUserResponse, ITwitchVideoResponse } from '$lib/types';
     import { onMount } from 'svelte';
 	import { Spinner } from 'flowbite-svelte';
 
 	let index = 0;
-    let images: HTMLImgAttributes[] = [];
     let selectedImage: HTMLImgAttributes;
 	let forward = true; // sync animation direction between Thumbnails and Carousel
     let streamInfos: IStreamInfos = {};
@@ -22,22 +21,46 @@
         selectedStreamClips = await getStreamClips(selectedImage);
     })()
 
+    const getTwitchUserInfo = async (): Promise<ITwitchUser[]> => {
+        const sponserNames = HIBISCUS_CUP_SPONSER.filter((sponser) => sponser.twitch != '').map((sponser) => sponser.twitch);
+        const memberNames = HIBISCUS_CUP_MEMBER.map((member) => member.twitch);
+        const names = [...sponserNames, ...memberNames];
+        const response = await axios.post<ITwitchUserResponse>(
+            '/api/twitch/users',
+            { names: names }
+        );
+        const users = response.data.users;
+        return users;
+    }
+
+    let images: HTMLImgAttributes[] = [];
 	const profile_image_prefix = 'https://pbs.twimg.com/profile_images/';
-	const setProfileImageAttributes = () => {
+	const setProfileImageAttributes = ( twitchUserInfo: ITwitchUser[] ) => {
 		let attributes: HTMLImgAttributes[] = [];
         for (const sponser of HIBISCUS_CUP_SPONSER) {
             const hasVideo = sponser.video_id.length > 0;
             if (!hasVideo) { continue; }
 
+            const needUserTwitterImg = twitchUserInfo == null || twitchUserInfo.filter((user) => user.login === sponser.twitch).length === 0;
+            const src =  needUserTwitterImg ? 
+                            profile_image_prefix + sponser.profile_image :
+                            twitchUserInfo.filter((user) => user.login === sponser.twitch)[0].profile_image_url;
+
             attributes.push({
-				src: profile_image_prefix + sponser.profile_image,
+				src: src,
 				alt: sponser.twitch
 			});
         }
 
 		for (const member of HIBISCUS_CUP_MEMBER) {
+            const needUserTwitterImg = twitchUserInfo == null || twitchUserInfo.filter((user) => user.login === member.twitch).length === 0;
+            const src =  needUserTwitterImg ? 
+                            profile_image_prefix + member.profile_image :
+                            twitchUserInfo.filter((user) => user.login === member.twitch)[0].profile_image_url;
+
+
 			attributes.push({
-				src: profile_image_prefix + member.profile_image,
+				src: src,
 				alt: member.twitch
 			});
 		}
@@ -109,9 +132,12 @@
 
         return [];
     }
+
+
     
     onMount(async () => {
-        setProfileImageAttributes();
+        const twitchUserInfo = await getTwitchUserInfo();
+        setProfileImageAttributes(twitchUserInfo);
         await setStreamInfo();
         selectedImage = images[index];
     })
