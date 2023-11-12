@@ -11,6 +11,7 @@
 	import { Spinner } from 'flowbite-svelte';
 
 	let index = 0;
+    let twitchUserInfo : ITwitchUser[];
     let selectedImage: HTMLImgAttributes;
 	let forward = true; // sync animation direction between Thumbnails and Carousel
     let streamInfos: IStreamInfos = {};
@@ -136,7 +137,7 @@
 
     
     onMount(async () => {
-        const twitchUserInfo = await getTwitchUserInfo();
+        twitchUserInfo = await getTwitchUserInfo();
         setProfileImageAttributes(twitchUserInfo);
         await setStreamInfo();
         selectedImage = images[index];
@@ -145,8 +146,10 @@
 
 <div class="flex flex-col items-center">
     <div class="max-w-7xl space-y-4">
-        <Carousel {images} {streamInfos} {forward} transition={null} slideDuration={500} bind:index />
-        <Thumbnails {images} {forward} throttleDelay={250} imgClass="h-[50px] w-auto" bind:index bind:selectedImage />
+        {#if twitchUserInfo?.length > 0}
+            <Carousel {images} {streamInfos} {forward} transition={null} slideDuration={500} bind:index />
+            <Thumbnails {images} {forward} throttleDelay={250} imgClass="h-[50px] w-auto" bind:index bind:selectedImage />
+        {/if}
     </div>
 
     <div class="m-5">
